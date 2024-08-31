@@ -34,7 +34,6 @@ Future<ResponseModel> getUsersData() async {
     );
   }
  } catch (e) {
-
    return const ResponseModel(
     //استاتوس 500 هم که خودمان داده ایم یعنی اصلا نتوانسته ایم در خواستی بدهیم
       statusCode: 500,

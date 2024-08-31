@@ -203,13 +203,15 @@ class _HomePageState extends State<HomePage>
                   int number = checkEntry() ?? 0;
                   // بررسی میکنیم آیا مقدار ورودی ها درست است یا که خیر
                   // اگر نبود عملیاتی را جهت نشان دادن وجود ارور انجام میدهیم
-                  if (number.toString().length < 4) {
+                  if (number.toString().padLeft(4, '0').length < 4) {
                     setState(() {
                       onError = true;
                     });
                   }
                   // اگر بود به صفحه بعدی میرویم
-                  if(number.toString().length == 4){
+                  // رشته با حداقل طول 4 و صفرهای اولیه
+                  // چون د راین حالت ممکن است 0 های اول را درنظر نگید
+                  if(number.toString().padLeft(4, '0').length == 4){
                     Navigator.of(context).push( MaterialPageRoute(builder: (context) => UsersDataPage(),) );
                   }
                 },
