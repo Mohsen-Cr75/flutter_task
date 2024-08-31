@@ -35,16 +35,16 @@ class _HomePageState extends State<HomePage>
 
   // لازم است متغییر های وارد شده را به عنوان یک عضو واحد مورد بررسی قرار دهیم پس آنها را با هم ادغام میکنیم
   // ادغام : تنها ورودی ها را به هم میچسانیم بدون هیچ عملیات دیگری
-  int? checkEntry() {
+  String checkEntry() {
     String result = digit
         .map((sublist) => sublist.isNotEmpty ? sublist[0].toString() : '')
         .join();
 
     // ممکن است ورودی تهی باشد
     if (result.isEmpty) {
-      return 0;
+      return '';
     }
-    return int.parse(result);
+    return result;
   }
 
   // به تغییرات ورودی در تکست فیلد واکنش نشان مبدهد
@@ -200,18 +200,19 @@ class _HomePageState extends State<HomePage>
               ),
               InkWell(
                 onTap: () {
-                  int number = checkEntry() ?? 0;
+                  String number = checkEntry() ;
                   // بررسی میکنیم آیا مقدار ورودی ها درست است یا که خیر
                   // اگر نبود عملیاتی را جهت نشان دادن وجود ارور انجام میدهیم
-                  if (number.toString().padLeft(4, '0').length < 4) {
+                  if (number.length < 4) {
                     setState(() {
                       onError = true;
                     });
                   }
+
+                  // رشته با حداقل 4
                   // اگر بود به صفحه بعدی میرویم
-                  // رشته با حداقل طول 4 و صفرهای اولیه
-                  // چون د راین حالت ممکن است 0 های اول را درنظر نگید
-                  if(number.toString().padLeft(4, '0').length == 4){
+                  
+                  if(number.length == 4){
                     Navigator.of(context).push( MaterialPageRoute(builder: (context) => UsersDataPage(),) );
                   }
                 },
